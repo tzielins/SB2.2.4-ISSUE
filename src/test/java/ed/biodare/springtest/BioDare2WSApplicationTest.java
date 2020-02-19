@@ -5,6 +5,8 @@
  */
 package ed.biodare.springtest;
 
+import ed.biodare.springtest.security.dao.UserAccountRep;
+import ed.biodare.springtest.security.dao.db.UserAccount;
 import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +35,7 @@ public class BioDare2WSApplicationTest {
     Environment env;
     
     @Autowired
-    private TestRestTemplate template;
+    UserAccountRep accounts;    
     
     @Test
     public void contextLoads() {
@@ -46,18 +48,18 @@ public class BioDare2WSApplicationTest {
     }    
     
     @Test
-    @Ignore
-    public void CORSWorks() throws IOException {
+    public void canAddFirstUser() {
+        UserAccount acc = UserAccount.testInstance(1L);
+        acc.setLogin("user1");
+        acc.setPassword("user1");
+        acc.setFirstName("First");
+        acc.setLastName("User");
+        acc.setEmail("biodare6@ed.ac.uk");
+        acc.setSupervisor(acc);
+        acc.setInstitution("University of Edinburgh");
+        // acc.addGroup(fixtures.otherGroup);
         
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Origin", "http://localhost:3000");
-        
-        HttpEntity<String> request = new HttpEntity<>(headers);
-        
-        ResponseEntity<String> response = template.exchange("/", HttpMethod.OPTIONS, request, String.class);
-        
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-    }
-    
+        acc = accounts.save(acc);         
+        assertNotNull(acc);
+    }    
 }

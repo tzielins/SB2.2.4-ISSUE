@@ -5,6 +5,8 @@
  */
 package ed.biodare.springtest;
 
+import ed.biodare.springtest.security.dao.UserAccountRep;
+import ed.biodare.springtest.security.dao.db.UserAccount;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -20,13 +22,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BioDare2WSApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 // @Import(SimpleRepoTestConfig.class)
-public class EnvironmentVariablesTest {
+public class SecondTest {
 
     
     @Autowired
     EnvironmentVariables instance;
     
-    public EnvironmentVariablesTest() {
+    @Autowired
+    UserAccountRep accounts;
+    
+    public SecondTest() {
     }
     
   
@@ -63,5 +68,21 @@ public class EnvironmentVariablesTest {
         assertNotNull(instance.mailHost);
         assertNotNull(instance.mailUser);
         assertNotNull(instance.mailPassword);
-    }     
+    }  
+    
+    @Test
+    public void canAddFirstUser() {
+        UserAccount acc = UserAccount.testInstance(1L);
+        acc.setLogin("user1");
+        acc.setPassword("user1");
+        acc.setFirstName("First");
+        acc.setLastName("User");
+        acc.setEmail("biodare6@ed.ac.uk");
+        acc.setSupervisor(acc);
+        acc.setInstitution("University of Edinburgh");
+        // acc.addGroup(fixtures.otherGroup);
+        
+        acc = accounts.save(acc);         
+        assertNotNull(acc);
+    }
 }
