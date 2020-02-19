@@ -14,15 +14,12 @@
     <parent>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-parent</artifactId>
+            <!--<version>2.2.0.RELEASE</version>-->
             <version>2.2.4.RELEASE</version>
             <relativePath/> <!-- lookup parent from repository -->
     </parent>    
     
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -47,26 +44,6 @@
 			<scope>runtime</scope>
 		</dependency>
                                 
-                <!-- for reading java time from json   
-                <dependency>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jsr310</artifactId>
-                </dependency> --> 
-                        
-                <!-- caching -->
-                <dependency>
-                    <groupId>com.github.ben-manes.caffeine</groupId>
-                    <artifactId>caffeine</artifactId>
-                    <!--<version>2.3.3</version>-->
-                </dependency>        
-                
-                <!-- for jaxb support --> 
-                <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-                <dependency>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                    <!-- <version>2.3.1</version> -->
-                </dependency> 
                 
                 <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
                 <dependency>
@@ -75,54 +52,6 @@
                     <!-- <version>2.3.2</version> -->
                 </dependency>
 
-                <!-- for jax-ws JobCentre client -->                                 
-                <!-- https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api -->
-                <dependency>
-                    <groupId>javax.xml.ws</groupId>
-                    <artifactId>jaxws-api</artifactId>
-                    <!--<version>2.3.1</version>-->
-                </dependency>  
-                
-                <dependency>
-                    <groupId>com.sun.xml.ws</groupId>
-                    <artifactId>jaxws-rt</artifactId>
-                    <version>2.3.1</version>
-                    <!--<type>pom</type>-->
-                </dependency>  
-                <dependency>
-                    <groupId>com.sun.xml.ws</groupId>
-                    <artifactId>rt</artifactId>
-                    <version>2.3.1</version>
-                </dependency>                                                                                                                                                                                                                                                                                                                
-                
-                
-                <!-- Search  -->
-                <dependency>
-                    <groupId>org.apache.lucene</groupId>
-                    <artifactId>lucene-core</artifactId>
-                    <version>${lucene.version}</version>
-                </dependency>   
-                
-                <dependency>
-                    <groupId>org.apache.lucene</groupId>
-                    <artifactId>lucene-queryparser</artifactId>
-                    <version>${lucene.version}</version>
-                </dependency>                                          
-                
-                <!-- pool for lock -->        
-                <dependency>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-pool2</artifactId>
-                    <!--<version>2.4.2</version>-->
-                </dependency>                                                        
-                <!-- pool for lock --> 
-                
-                <!-- added as ed.biodare2.backend.repo.dao.PPAArtifactsRepTest was failing -->                    
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.17</version>
-                </dependency>
                         
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -134,23 +63,6 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-                
-                <!-- for restTemplate with handling options on request -->
-                <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient</artifactId>
-                    <scope>test</scope>
-                </dependency>                 
-                
-                <!-- for testing equality by reflection -->
-                <dependency>
-                    <groupId>org.unitils</groupId>
-                    <artifactId>unitils-core</artifactId>
-                    <version>3.4.2</version>
-                    <scope>test</scope>
-                </dependency>                   
-                
-                
                 
 	</dependencies>
 

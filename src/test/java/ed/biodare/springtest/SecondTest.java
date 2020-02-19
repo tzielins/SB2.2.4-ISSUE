@@ -32,42 +32,6 @@ public class SecondTest {
     public SecondTest() {
     }
     
-  
-
-    @Test
-    public void hasStoragePath() {
-        
-        assertNotNull(instance.storageDir);
-        //assertEquals(Paths.get("D:/Temp/biodare2/storage"),instance.storageDir);
-    }
-    
-    @Test
-    public void hasBackendURL() {
-        
-        assertNotNull(instance.backendURL);
-    }    
-    
-    @Test
-    public void hasJobcentreURL() {
-        
-        assertNotNull(instance.jobcentreURL);
-    }    
-    
-    @Test
-    public void hasReCaptchaKeys() {
-        
-        assertNotNull(instance.recaptchaSiteKey);
-        assertNotNull(instance.recaptchaSecretKey);
-    }        
-    
-    @Test
-    public void hasMailProperties() {
-        
-        assertNotNull(instance.mailHost);
-        assertNotNull(instance.mailUser);
-        assertNotNull(instance.mailPassword);
-    }  
-    
     @Test
     public void canAddFirstUser() {
         UserAccount acc = UserAccount.testInstance(1L);
@@ -78,9 +42,16 @@ public class SecondTest {
         acc.setEmail("biodare6@ed.ac.uk");
         acc.setSupervisor(acc);
         acc.setInstitution("University of Edinburgh");
-        // acc.addGroup(fixtures.otherGroup);
         
         acc = accounts.save(acc);         
         assertNotNull(acc);
     }
+  
+
+    @Test
+    public void hasBackendURL() {
+        
+        assertNotNull(instance.backendURL);
+    }      
+     
 }

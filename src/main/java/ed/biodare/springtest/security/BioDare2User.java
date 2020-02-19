@@ -5,9 +5,6 @@
  */
 package ed.biodare.springtest.security;
 
-import java.util.List;
-import java.util.Set;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -52,8 +49,7 @@ public interface BioDare2User extends UserDetails {
     boolean hasDirtySession();
     void setDirtySession(boolean dirty);
 
-    @Override
-    public List<GrantedAuthority> getAuthorities();
+
     
     BioDare2User getSupervisor();
     

@@ -31,12 +31,6 @@ public class BioDare2WSApplicationTest {
     }
         
     @Test
-    public void testConfigurationFileShouldBeLoaded() {
-        assertNotNull(env);        
-        assertTrue("Should end with test, got: "+env.getProperty("bd2.storage.dir", "MISSING"),env.getProperty("bd2.storage.dir", "MISSING").endsWith("test"));
-    }    
-    
-    @Test
     public void canAddFirstUser() {
         UserAccount acc = UserAccount.testInstance(1L);
         acc.setLogin("user1");
@@ -46,9 +40,16 @@ public class BioDare2WSApplicationTest {
         acc.setEmail("biodare6@ed.ac.uk");
         acc.setSupervisor(acc);
         acc.setInstitution("University of Edinburgh");
-        // acc.addGroup(fixtures.otherGroup);
         
         acc = accounts.save(acc);         
         assertNotNull(acc);
+    } 
+    
+    @Test
+    public void testConfigurationFileShouldBeLoaded() {
+        assertNotNull(env);        
+        assertTrue("Should end with test, got: "+env.getProperty("bd2.storage.dir", "MISSING"),env.getProperty("bd2.storage.dir", "MISSING").endsWith("test"));
     }    
+    
+   
 }
