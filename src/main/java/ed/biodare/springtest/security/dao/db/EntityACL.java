@@ -6,24 +6,16 @@
 package ed.biodare.springtest.security.dao.db;
 
 
-import ed.biodare.springtest.security.BioDare2Group;
 import ed.biodare.springtest.security.BioDare2User;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -83,15 +75,6 @@ public class EntityACL implements Serializable {
     LocalDateTime modificationDate;
     
 
-    @ManyToMany(targetEntity = UserGroup.class, fetch = FetchType.EAGER)
-    @JoinTable(name="ENTITY_ACL_DBGROUP_READ",inverseJoinColumns = @JoinColumn(name="READ_GROUP_ID") )
-    //@JoinTable(name="dbacl_dbgroup",inverseJoinColumns=@JoinColumn(name="allowedToRead_ID",columnDefinition="BIGINT NULL"))
-    protected Set<BioDare2Group> allowedToRead = new HashSet<>();
-    
-    @ManyToMany(targetEntity = UserGroup.class, fetch = FetchType.EAGER)
-    //@JoinTable(name="dbacl_dbgroup",inverseJoinColumns=@JoinColumn(name="allowedToWrite_ID",columnDefinition="BIGINT NULL"))
-    @JoinTable(name="ENTITY_ACL_DBGROUP_WRITE",inverseJoinColumns = @JoinColumn(name="WRITE_GROUP_ID"))
-    protected Set<BioDare2Group> allowedToWrite = new HashSet<>();
 
     public Long getId() {
 	return id;
@@ -130,39 +113,6 @@ public class EntityACL implements Serializable {
         this.isOpen = isPublic;
     }
 
-    public void clearLists()
-    {
-	getAllowedToRead().clear();
-	getAllowedToWrite().clear();
-    }
-
-    public Set<BioDare2Group> getAllowedToRead() {
-	return allowedToRead;
-    }
-
-    /*
-    public <T extends Group> void setAllowedToRead(List<T> canRead) {
-	this.allowedToRead = (List<DBGroup>) canRead;
-    }*/
-
-    public Set<BioDare2Group> getAllowedToWrite() {
-	return allowedToWrite;
-    }
-
-    /*@SuppressWarnings("unchecked")
-    public <T extends Group> void setAllowedToWrite(List<T> canWrite) {
-	this.allowedToWrite = (List<DBGroup>) canWrite;
-    }*/
-
-    public void addCanRead(BioDare2Group group)
-    {
-	getAllowedToRead().add((UserGroup)group);
-    }
-
-    public void addCanWrite(BioDare2Group group)
-    {
-	getAllowedToWrite().add((UserGroup)group);
-    }
 
     @Override
     public String toString() {
@@ -170,60 +120,7 @@ public class EntityACL implements Serializable {
     }
 
 
-    public boolean canReadS(List<String> gNames)
-    {
-	for (String gName : gNames)
-	    if (canRead(gName)) return true;
-	return false;
-    }
 
-    public boolean canWriteS(List<String> gNames)
-    {
-	for (String gName : gNames)
-	    if (canWrite(gName)) return true;
-	return false;
-    }
-
-    public boolean canRead(List<BioDare2Group> groups)
-    {
-	for (BioDare2Group group: groups)
-	    if (canRead(group)) return true;
-	return false;
-    }
-
-    public boolean canWrite(List<BioDare2Group> groups)
-    {
-	for (BioDare2Group group: groups)
-	    if (canWrite(group)) return true;
-	return false;
-    }
-
-    public boolean canRead(BioDare2Group group)
-    {
-        return getAllowedToRead().contains(group);
-    }
-
-    public boolean canRead(String gName)
-    {        
-	return isInList(gName,getAllowedToRead());
-    }
-
-    public boolean canWrite(BioDare2Group group)
-    {
-        return getAllowedToWrite().contains(group);
-    }
-
-    public boolean canWrite(String gName)
-    {
-	return isInList(gName,getAllowedToWrite());
-    }
-
-    protected boolean  isInList(String name,Collection<BioDare2Group> groups)
-    {
-	for (BioDare2Group g : groups)
-	    if (g.getName().equals(name)) return true;
-	return false;
-    }
 
     public BioDare2User getCreator() {
         return creator;

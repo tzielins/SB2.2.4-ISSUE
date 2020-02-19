@@ -57,31 +57,6 @@ public interface BioDare2User extends UserDetails {
     
     BioDare2User getSupervisor();
     
-    public Set<BioDare2Group> getGroups();
-    
-    public Set<BioDare2Group> getSystemGroups();
-    
-    
-    //public  List<BioDare2Group> getUserGroups();
-
-    //public List<BioDare2Group> getSystemGroups();
-
-    //public List<BioDare2Group> getSpecialGroups();
-
-    public void addGroup(BioDare2Group group);
-
-    /**
-     * Gives list of groups for which read permission should be granted as the default option
-     * for any resources produced by this user
-     * @return list of groups
-     */
-    public Set<BioDare2Group> getDefaultToRead();
-
-    public Set<BioDare2Group> getDefaultToWrite();
-
-    public void addDefaultToRead(BioDare2Group group);
-
-    public void addDefaultToWrite(BioDare2Group group);    
     
 
 }

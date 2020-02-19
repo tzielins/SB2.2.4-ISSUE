@@ -6,17 +6,14 @@
 package ed.biodare.springtest.security.dao.db;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ed.biodare.springtest.security.BioDare2Group;
 import ed.biodare.springtest.security.BioDare2User;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,9 +22,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
@@ -146,26 +141,6 @@ public class UserAccount implements Serializable, BioDare2User {
     @JoinTable(name="USERACCOUNT_SUPERVISOR")
     BioDare2User supervisor;
     
-    //@ManyToMany(cascade=CascadeType.PERSIST,targetEntity = UserGroup.class)
-    @ManyToMany(targetEntity = UserGroup.class,fetch = FetchType.EAGER)
-    @OrderBy("name ASC")
-    @JoinTable(name="USERACCOUNT_GROUP")
-    protected Set<BioDare2Group> groups = new HashSet<>();
-    
-    @ManyToMany(targetEntity = UserGroup.class,fetch = FetchType.EAGER)
-    @OrderBy("name ASC")
-    @JoinTable(name="USERACCOUNT_SYSGROUP")
-    protected Set<BioDare2Group> systemGroups = new HashSet<>();    
-    
-    @ManyToMany(targetEntity = UserGroup.class,fetch = FetchType.EAGER)
-    @JoinTable(name="USERACCOUNT_DEFREAD")
-    @OrderBy("name ASC")
-    protected Set<BioDare2Group> defaultToRead = new HashSet<>();
-    
-    @ManyToMany(targetEntity = UserGroup.class,fetch = FetchType.EAGER)
-    @JoinTable(name="USERACCOUNT_DEFWRITE")
-    @OrderBy("name ASC")
-    protected Set<BioDare2Group> defaultToWrite = new HashSet<>();  
     
     
     @Transient
@@ -418,77 +393,6 @@ public class UserAccount implements Serializable, BioDare2User {
     public void setSupervisor(BioDare2User supervisor) {
         this.supervisor = supervisor;
     }
-
-
-    
-    
-
-    @Override
-    public Set<BioDare2Group> getGroups() {
-        
-        return groups;
-        /*
-        return groups.stream()
-                .filter( g -> !g.isSpecial())
-                .filter( g -> !g.isSystem())
-                .collect(Collectors.toList());
-                */
-    }
-    
-    @Override
-    public Set<BioDare2Group> getSystemGroups() {
-        
-        return systemGroups;
-        /*
-        return groups.stream()
-                .filter( g -> !g.isSpecial())
-                .filter( g -> !g.isSystem())
-                .collect(Collectors.toList());
-                */
-    }    
-
-    /*
-    @Override
-    public List<BioDare2Group> getSystemGroups() {
-        return groups.stream()
-                .filter( g -> g.isSystem())
-                .collect(Collectors.toList());  
-    }*/
-    
-    /*
-    @Override
-    public List<BioDare2Group> getSpecialGroups() {
-        return groups.stream()
-                .filter( g -> g.isSpecial())
-                .collect(Collectors.toList());  
-    }*/
-
-    @Override
-    public void addGroup(BioDare2Group group) {
-        if (group.isSystem()) systemGroups.add(group);
-        else groups.add(group);
-    }
-
-    @Override
-    public Set<BioDare2Group> getDefaultToRead() {
-        return defaultToRead;
-    }
-
-    @Override
-    public Set<BioDare2Group> getDefaultToWrite() {
-        return defaultToWrite;
-    }
-
-    @Override
-    public void addDefaultToRead(BioDare2Group group) {
-        defaultToRead.add(group);
-    }
-
-    @Override
-    public void addDefaultToWrite(BioDare2Group group) {
-        defaultToWrite.add(group);
-    }
-
 
     public String getTermsVersion() {
         return termsVersion;
